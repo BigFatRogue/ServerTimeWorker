@@ -1,0 +1,8 @@
+DATABASE = 'users.db'
+SECRET_KEY = 'sadfljmnwseblkru3h28b1231nba123jhb'
+SESSION_TYPE = 'filesystem'
+DEBUG = True
+THREADED = True
+SESSION_COOKIE_SAMESITE = "None"
+SESSION_COOKIE_SECURE = True
+SUPPORTS_CREDENTIALS = True

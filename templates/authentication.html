@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Authentication</title>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/authentication.css') }}">
+</head>
+<body>
+    <div class="content">
+        <div class="tab">
+            <button class="tab-links active" onclick="open_tab(event, 'authentication')">Авторизация</button>
+            <button class="tab-links" onclick="open_tab(event, 'registration')">Регистрация</button>
+        </div>
+        <div id="authentication" class="tab-content" style="display: block">
+            <form action="/login" method="post" class="form-login">
+                <table id="table-authentication">
+                    <tr><td colspan="2" class="title"><b>Authentication</b></td></tr>
+                    <tr>
+                        <td colspan="2">
+                            {% for cat, msg in get_flashed_messages(True) %}
+                            <div class="flash {{cat}}">{{msg}}</div>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr><td>Login</td><td><input type="text" name="username" value="" required/></td></tr>
+                    <tr><td>Password</td><td><input type="Password" name="password" value="" required/></td></tr>
+                    <tr><td colspan="2"><input type="submit" value="Войти"/></td></tr>
+                </table>
+            </form>
+        </div>
+        <div id="registration" class="tab-content">
+            <form action="/registration" method="post" class="form-registration">
+                {% for cat, msg in get_flashed_messages(True) %}
+                <div class="flash {{cat}}">{{msg}}</div>
+                {% endfor %}
+                <table id="table-registration">
+                    <tr><td>Логин</td><td><input type="text" name="username" value="" required/></td></tr>
+                    <tr><td>Пароль</td><td><input type="Password" name="password" value="" required/></td></tr>
+                    <tr><td>Повторите пароль</td><td><input type="Password" name="repet-password" value="" required/></td></tr>
+                    <tr><td colspan="2"><input type="submit" value="Зарегистрироваться"/></td></tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/authentication.js') }}"></script>
+</body>
+</html>
