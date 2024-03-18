@@ -116,7 +116,7 @@ def webhook():
 
 @app.after_request
 def add_security_headers(resp):
-    resp.headers['Content-Security-Policy'] = 'frame-src http://127.0.0.1:5000/'
+    resp.headers['Content-Security-Policy'] = 'frame-src https://catlulyk.pythonanywhere.com'
     return resp
 
 
