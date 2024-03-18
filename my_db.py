@@ -1,4 +1,4 @@
-from sitting import DATABASE
+from my_sitting import DATABASE
 import sqlite3
 import os
 import shutil

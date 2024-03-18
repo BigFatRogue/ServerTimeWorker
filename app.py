@@ -1,4 +1,4 @@
-from sitting import *
+from my_sitting import *
 import git
 
 from flask import Flask, request, jsonify, render_template, url_for, session, flash, redirect
@@ -6,7 +6,7 @@ from flask_session import Session
 from flask_cors import CORS
 
 from get_users_json import get_user_calendar_json, update_calendar_user_json
-from db import *
+from my_db import *
 
 
 app = Flask(__name__)
