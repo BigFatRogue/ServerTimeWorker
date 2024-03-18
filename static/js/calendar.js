@@ -4,7 +4,6 @@ document.body.addEventListener('click', function (event) {
     }
 });
 function main_function(calendar) {
-
     function create_table() {
         for (let row = 0; row < cRows; row++) {
             let tr = document.createElement('tr')
@@ -48,21 +47,25 @@ function main_function(calendar) {
         let lst_mouth = data[Number(number_mouth)]
 
         let y = 0;
+        let total_minutes = 0;
         for (let i = 0; i < lst_mouth.length; i++) {
-            let [type_day, week_day, day, hours] = lst_mouth[i]
+            let [type_day, week_day, day, minutes] = lst_mouth[i]
 
             if (day !== 1.0 && week_day === 0) y += 1
             let cell = table.rows[y].cells[week_day]
 
             cell.children[0].textContent = day
-            cell.children[1].textContent = minutes_to_hours(hours)
+            cell.children[1].textContent = minutes_to_hours(minutes)
             cell.children[1].contentEditable =  'true'
             cell.children[1].oninput = edit_cell
             cell.onwheel = edit_cell_wheel
 
             if (type_day === 0) cell.className = 'day-off'
             else if (type_day === 1) cell.className = 'day-on'
+
+            total_minutes += minutes
         }
+        document.getElementById('total-hours').textContent = Math.floor(total_minutes / 60) + ":" + (total_minutes % 60).toString().padStart(2, '0')
     }
 
     function check_cell_hour(cell) {
@@ -80,7 +83,6 @@ function main_function(calendar) {
             if (Number(hour) + Number(minutes) === 0) parent.className = 'day-off'
             else if (Number(hour) + Number(minutes) !== 0) parent.className = 'day-on'
         }
-
     }
 
     function edit_cell(event) {
@@ -88,9 +90,18 @@ function main_function(calendar) {
     }
 
     function edit_cell_wheel(event) {
+        let div_total_hours = document.getElementById('total-hours')
+        let total_minutes = hours_to_minutes(div_total_hours.textContent)
+
         let minutes = hours_to_minutes(this.children[1].textContent)
-        if (event.deltaY > 0 && minutes !== 0) minutes -= 5
-        else minutes += 5
+        if (event.deltaY > 0 && minutes !== 0) {
+            minutes -= 5
+            div_total_hours.textContent = minutes_to_hours(total_minutes - 5)
+        }
+        else {
+            minutes += 5
+            div_total_hours.textContent = minutes_to_hours(total_minutes + 5)
+        }
         this.children[1].textContent = minutes_to_hours(minutes)
         check_cell_hour(this.children[1])
     }
@@ -183,6 +194,15 @@ function main_function(calendar) {
         }
     }
 
+    function total_hours_mouth(mouth, year) {
+        let total_minutes = 0;
+        calendar[year][mouth].forEach((item) => {
+            let [type_day, week_day, day, hours] = item
+                total_minutes += hours
+        })
+        return total_minutes
+    }
+
     document.body.onmouseleave = update_calendar_user
 
     document.getElementById('prev-mouth').onclick = prev_mouth
@@ -195,9 +215,6 @@ function main_function(calendar) {
         now_mouth,
         now_year)
 }
-// Сделать ссылки для расширения рабочими
-
-
 
 async function main() {
     await fetch('get_calendar/' + user_id)

@@ -11,7 +11,14 @@
 <body>
 
     <div class="calendar">
-            <div id="control-panel">
+        <div class="control-user">
+            <div id="total-hours">
+                00ч:00м
+            </div>
+            <div><form  method="post" action="logout"><button id="update">logout </button></form></div>
+            <div id="username">({{username}})</div>
+        </div>
+        <div id="control-panel">
                 <div id="control-mouth">
                     <button class="next-prev" id='prev-mouth'></button>
                     <span id="now-name-mouth">Месяц</span>
@@ -21,10 +28,8 @@
                     <div id="control-update-calendar-user">
                     <div><a id='link-hour-bitrix' href="https://alfalservice.bitrix24.ru/timeman/timeman.php">Мои часы</a></div>
                 </div>
-                <form  method="post" action="logout"><button id="update">logout</button></form>
-
             </div>
-            <div class="tables">
+        <div class="tables">
                 <div>
                     <table id="table-day-week">
                         <tr>
@@ -43,7 +48,10 @@
                     </table>
                 </div>
             </div>
-        </div>
+
+    </div>
+
+
     <script src="{{ url_for('static', filename='js/calendar.js') }}"></script>
 </body>
 </html>

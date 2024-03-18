@@ -1,3 +1,19 @@
+let div_reg = document.getElementById("registration")
+let div_auth = document.getElementById("authentication")
+let tab_right = document.getElementById('tab-right')
+let tab_left = document.getElementById('tab-left')
+
+if (page === 'reg') {
+    div_reg.style.display = "block";
+    div_auth.style.display = "none";
+    tab_right.className += ' active'
+}
+else {
+    div_auth.style.display = "block";
+    div_reg.style.display = "none";
+    tab_left.className += ' active'
+}
+
 function open_tab(event, log) {
     let tabcontent = document.getElementsByClassName("tab-content");
     for (let i = 0; i < tabcontent.length; i++) {

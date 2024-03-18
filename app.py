@@ -5,7 +5,6 @@ from flask import Flask, request, jsonify, render_template, url_for, session, fl
 from flask_session import Session
 from flask_cors import CORS
 
-from authentication import registration_user
 from get_users_json import get_user_calendar_json, update_calendar_user_json
 from db import *
 
@@ -19,7 +18,6 @@ CORS(app, supports_credentials=SUPPORTS_CREDENTIALS)
 
 @app.route("/")
 def index():
-    print(session)
     if session.get('userLogged'):
         return redirect(url_for('calendar'))
     return redirect(url_for('authentication'))
@@ -33,13 +31,15 @@ def registration():
         repet_password = request.form.get('repet-password')
 
         if password == repet_password:
-            flag, msg = registration_user(username, password)
+            db = UsersDB()
+            flag, msg = db.set_users(username, password)
             if not flag:
-                flash(msg, category='error')
-            flash(msg, category='success')
+                flash(msg, category='reg-error')
+            else:
+                flash(msg, category='reg-success')
         else:
-            flash("Пароли на совпадают", category='error')
-    return render_template('authentication.html')
+            flash("Пароли на совпадают", category='reg-error')
+    return render_template('authentication.html', page='reg')
 
 
 @app.route("/login", methods=["POST"])
@@ -49,28 +49,30 @@ def login():
         password = request.form.get('password')
 
         db = UsersDB()
-        flag, user_id, data = db.get_users(username, password)
+        flag, user_id, data = db.get_user(username, password)
 
         if flag:
             if not session.get('userLogged'):
-                session['userLogged'] = {'id': user_id}
+                session['userLogged'] = {'id': user_id, 'username': username}
             return redirect(url_for('calendar'))
         else:
-            flash(data, category='error')
-    return render_template('authentication.html')
+            flash(data, category='log-error')
+    return render_template('authentication.html', page='auth')
+    # return redirect(url_for('authentication'))
 
 
 @app.route("/calendar")
 def calendar():
     if session.get('userLogged'):
         user_id = session.get('userLogged').get('id')
-        return render_template('calendar.html', user_id=user_id)
+        username = session.get('userLogged').get('username')
+        return render_template('calendar.html', user_id=user_id, username=username)
     return 'УПС'
 
 
 @app.route("/authentication")
 def authentication():
-    return render_template('authentication.html')
+    return render_template('authentication.html', page='auth')
 
 
 @app.route("/logout", methods=["POST"])
@@ -82,6 +84,7 @@ def logout():
 
 @app.route("/get_calendar/<user_id>")
 def get_calendar(user_id):
+    print(user_id)
     return jsonify(get_user_calendar_json(user_id=user_id))
 
 
