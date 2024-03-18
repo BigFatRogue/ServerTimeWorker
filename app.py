@@ -1,19 +1,18 @@
-from my_sitting import *
 import git
-
+from my_sitting import DATABASE, SECRET_KEY, SESSION_TYPE, DEBUG, THREADED, SESSION_COOKIE_SAMESITE, SESSION_COOKIE_SECURE, SUPPORTS_CREDENTIALS
 from flask import Flask, request, jsonify, render_template, url_for, session, flash, redirect
 from flask_session import Session
 from flask_cors import CORS
 
 from get_users_json import get_user_calendar_json, update_calendar_user_json
-from my_db import *
+from my_db import UsersDB
 
 
 app = Flask(__name__)
 app.config.from_object(__name__)
-app.config.update(SESSION_COOKIE_SAMESITE=SESSION_COOKIE_SAMESITE, SESSION_COOKIE_SECURE=SESSION_COOKIE_SECURE)
+app.config.update(SESSION_COOKIE_SAMESITE=app.config['SESSION_COOKIE_SAMESITE'], SESSION_COOKIE_SECURE=app.config['SESSION_COOKIE_SECURE'] )
 Session(app)
-CORS(app, supports_credentials=SUPPORTS_CREDENTIALS)
+CORS(app, supports_credentials=app.config['SUPPORTS_CREDENTIALS'])
 
 
 @app.route("/")

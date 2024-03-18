@@ -1,5 +1,4 @@
 import json
-from function import __get_data_json, __update_json
 
 
 def get_user_calendar_json(username=None, user_id=None) -> dict:
