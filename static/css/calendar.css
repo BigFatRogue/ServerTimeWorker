@@ -125,6 +125,9 @@ td:hover {
 #total-hours {
     margin-right: 50px;
 }
+#my-hours {
+    margin-right: 10px;
+}
 
 #username {
     padding: 2px;

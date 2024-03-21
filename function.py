@@ -1,4 +1,6 @@
 import json
+import re
+import requests
 
 
 def __get_data_json(filename: str) -> dict:
@@ -18,3 +20,4 @@ def __update_json(filename: str, data: dict):
         json_file = open(f'{filename}.json', 'w', encoding='utf-8')
     json.dump(data, json_file)
     json_file.close()
+

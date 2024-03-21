@@ -66,6 +66,16 @@ function main_function(calendar) {
             total_minutes += minutes
         }
         document.getElementById('total-hours').textContent = Math.floor(total_minutes / 60) + ":" + (total_minutes % 60).toString().padStart(2, '0')
+
+        fetch('/get_my_hours', {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({'user_id': user_id, 'mouth': change_mouth + 1, 'year': change_year}),
+                mode: 'no-cors'})
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('my-hours').textContent = data['hours'] + ":" + data['minutes']})
+
     }
 
     function check_cell_hour(cell) {
@@ -194,15 +204,6 @@ function main_function(calendar) {
         }
     }
 
-    function total_hours_mouth(mouth, year) {
-        let total_minutes = 0;
-        calendar[year][mouth].forEach((item) => {
-            let [type_day, week_day, day, hours] = item
-                total_minutes += hours
-        })
-        return total_minutes
-    }
-
     document.body.onmouseleave = update_calendar_user
 
     document.getElementById('prev-mouth').onclick = prev_mouth
@@ -219,8 +220,8 @@ function main_function(calendar) {
 async function main() {
     await fetch('get_calendar/' + user_id)
         .then(response => response.json())
-        .then(full_calendar => {
-            main_function(full_calendar)
+        .then(data_user_calendar => {
+            main_function(data_user_calendar)
         })
 }
 

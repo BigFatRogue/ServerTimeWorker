@@ -4,7 +4,7 @@ from flask import Flask, request, jsonify, render_template, url_for, session, fl
 from flask_session import Session
 from flask_cors import CORS
 
-from get_users_json import get_user_calendar_json, update_calendar_user_json
+from get_users_json import get_user_calendar_json, update_calendar_user_json, get_users_time_bitrix
 from my_db import UsersDB
 
 
@@ -83,8 +83,14 @@ def logout():
 
 @app.route("/get_calendar/<user_id>")
 def get_calendar(user_id):
-    print(user_id)
     return jsonify(get_user_calendar_json(user_id=user_id))
+
+
+@app.route("/get_my_hours", methods=["POST"])
+def get_my_hours():
+    if request.method == "POST":
+        data: dict = eval(request.data)
+        return jsonify(get_users_time_bitrix(**data))
 
 
 @app.route("/session_reboot")
@@ -97,6 +103,7 @@ def session_reboot():
 def update_calendar_user():
     if request.method == "POST":
         data: dict = eval(request.data)
+
         if update_calendar_user_json(data):
             return jsonify({'status': 'success'})
         return jsonify({'status': 'error'})
@@ -118,6 +125,15 @@ def webhook():
 def add_security_headers(resp):
     resp.headers['Content-Security-Policy'] = 'frame-src https://catlulyk.pythonanywhere.com'
     return resp
+
+
+@app.route('/test', methods=["POST", "GET"])
+def test():
+    if request.method == "POST":
+        data = request.data
+        print(data)
+        return jsonify({'status': 'POST'})
+    return jsonify({'status': 'GET'})
 
 
 if __name__ == '__main__':
