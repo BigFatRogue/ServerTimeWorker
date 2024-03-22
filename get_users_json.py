@@ -56,7 +56,6 @@ def parser_request_headers_user(string: str):
 
 def get_time_user_from_bitrix(cookies, headers, params, rng: tuple):
     params['REPORT_PERIOD_from'], params['REPORT_PERIOD_to'] = rng
-    print(cookies, headers, params, sep='\n')
 
     response = requests.get('https://alfalservice.bitrix24.ru/timeman/timeman.php',
                             params=params, cookies=cookies, headers=headers)

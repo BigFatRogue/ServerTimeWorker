@@ -6,6 +6,7 @@
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/calendar.css') }}">
     <script type="text/javascript">
         let user_id = '{{user_id}}'
+        let data_bitrix = '{{ data_bitrix }}';
     </script>
 </head>
 <body>
@@ -53,8 +54,6 @@
             </div>
 
     </div>
-
-
     <script src="{{ url_for('static', filename='js/calendar.js') }}"></script>
 </body>
 </html>
