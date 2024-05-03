@@ -54,9 +54,8 @@ def registration():
 
         if password == repet_password:
             db = UsersDB()
-            flag, user_db = db.set_users(username, password)
+            flag, user_id = db.set_users(username, password)
             if flag:
-                user_id, *_ = user_db
                 return render_template('auth/authentication_data_bitrix.html', user_id=user_id, username=username)
             else:
                 flash('Такой пользователь уже существует', category='reg-error')
@@ -127,7 +126,8 @@ def instruction():
 
 @app.after_request
 def add_security_headers(resp):
-    resp.headers['Content-Security-Policy'] = 'frame-src http://192.168.0.2:5000'
+    resp.headers['Content-Security-Policy'] = 'frame-src http://10.0.0.2:5000'
+    resp.headers['SameSite'] = 'Strict'
     return resp
 
 
