@@ -1,0 +1,91 @@
+.content {
+    width: 290px;
+    height: 250px;
+    position: absolute;
+    align-items: center;
+}
+
+.tab {
+    overflow: hidden;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.tab button {
+    font-family: 'Trebuchet MS';
+    color: white;
+    width: 50%;
+    background: #2c3e50;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.5s;
+}
+
+.tab button:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    color: black;
+}
+
+#tab-left {
+    border-top-left-radius: 5px;
+}
+#tab-right {
+    border-top-right-radius: 5px;
+}
+
+.tab button.active {
+    background-color: white;
+    color: black;
+    border: 1px solid #aeaeae;
+    border-bottom: none;
+}
+
+.tab-content {
+    background-color: white;
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #aeaeae;
+    border-top: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.table {
+    width: 100%;
+}
+
+.enter-info {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.flash {
+    padding: 10px;
+    text-align: center;
+    font-size: 12px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.flash.log-success,
+.flash.reg-success {
+    background: #aaffaa;
+    font-family: "Roboto", sans-serif;
+}
+.flash.log-error,
+.flash.reg-error {
+    background: #ffbebe;
+    font-family: "Roboto", sans-serif;
+}
+
+

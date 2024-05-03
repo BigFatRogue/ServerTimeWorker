@@ -1,0 +1,29 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    width: 290px;
+    height: 250px;
+    position: absolute;
+    align-items: center;
+}
+
+.submit-info {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #4CAF50;
+    width: 100%;
+    border: 0;
+    padding: 10px;
+    margin-top: 5px;
+    color: #FFFFFF;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.submit-info:hover {
+    background: #60c062;
+}

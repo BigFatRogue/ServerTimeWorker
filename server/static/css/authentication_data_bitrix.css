@@ -1,0 +1,35 @@
+.content {
+    width: 310px;
+    height: 380px;
+}
+
+#bush-cod {
+    min-width: 295px;
+    max-width: 295px;
+    min-height: 265px;
+    max-height: 265px;
+}
+
+.element {
+    margin: 5px;
+}
+
+.wrapper {
+    display: inline-block;
+}
+
+#info-bush {
+    width: 16px;
+    height: 16px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0);
+    background-image: url("../resources/image/help.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 2px;
+}
+#info-bush:hover {
+    background-color: rgba(200, 200, 200, 0.2);
+    cursor: pointer;
+}

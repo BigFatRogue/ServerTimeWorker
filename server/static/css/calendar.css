@@ -1,0 +1,175 @@
+.calendar
+ {
+    width: 300px;
+    background-color: white; /* Начальный цвет блока */
+    transition: background-color 1.0s ease; /* Плавная анимация изменения цвета */
+    border-radius: 15px;
+}
+
+#control-mouth {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0;
+}
+
+#table-day-week td,
+#table-number-day td
+{
+    text-align: center;
+    width: 300px;
+    font-family: 'Trebuchet MS';
+}
+
+#table-day-week td {
+    font-weight: bold;
+}
+
+#now-name-mouth{
+    font-family: 'Trebuchet MS';
+    font-weight: bold;
+    font-size: 14pt;
+}
+#now-year {
+    font-family: 'Trebuchet MS';
+    font-weight: bold;
+    font-size: 10pt;
+}
+
+.next-prev {
+    border: none;
+    background-size: cover;
+    height: 20px;
+    margin: 5px;
+    width: 20px;
+}
+
+#next-mouth, #prev-mouth {
+    background-color: rgba(255, 255, 255, 0);
+    background-image: url("../image/right-arrow.png");
+    transition: 0.3s;
+}
+#prev-mouth:hover,
+#next-mouth:hover{
+    cursor: pointer;
+}
+
+#prev-mouth {
+    transform: scale(-1, 1);
+}
+
+#prev-mouth:hover {
+    transform: scale(-1.5, 1.5);
+}
+
+#next-mouth:hover {
+    transform: scale(1.5, 1.5);
+}
+td:hover {
+    cursor: default;
+}
+
+#control-update-calendar-user {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+}
+
+#link-hour-bitrix {
+    font-size: 8pt;
+    color: gray;
+}
+
+.day-off,
+.day-on {
+    border-radius: 3px;
+}
+
+.day-off:hover,
+.day-on:hover {
+    background-color: bisque;
+}
+
+/*Ячейка*/
+.day-off {
+    background-color: #ff9a9a;
+    /*color: white;*/
+}
+
+/*Ячейка*/
+.day-on {
+    /*border: 1px solid black;*/
+    background-color: #aee574;
+}
+
+/*Поле с днём*/
+.number-day {
+    padding: 3px;
+    font-weight: bold;
+    color: #464646;
+}
+
+/*Поле с с часами*/
+.hour-day {
+    font-size: 12px;
+    background-color: white;
+    color: gray;
+}
+
+.control-user {
+    display: flex;
+    justify-content: right;
+    color: gray;
+    margin-bottom: 10px;
+}
+/*#total-hours {*/
+/*    margin-right: 50px;*/
+/*}*/
+/*#my-hours {*/
+/*    margin-right: 10px;*/
+/*}*/
+
+#username {
+    padding: 2px;
+    color: #b7b4b4;
+    font-size: 10pt;
+}
+.control-user button {
+    border: none;
+    background: none;
+    padding: 2px;
+    color: #b7b4b4;
+    font-size: 10pt;
+    text-decoration: underline;
+}
+.control-user button:hover {
+    color: gray;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+/*.time-info {*/
+/*    display: flex;*/
+/*}*/
+
+.time-info table {
+    width: 100%;
+    /*border-collapse: collapse;*/
+}
+
+.time-info table td {
+    font-family: 'Trebuchet MS';
+    font-size: 10pt;
+    text-align: center;
+    width: 33%;
+    /*border: 1px solid gray;*/
+}
+
+.time-bitrix {
+    background-color: #f0fafe;
+}
+.time-industrial {
+    color: black;
+    background-color: #aee574;
+}
+

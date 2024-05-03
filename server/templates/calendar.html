@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendar</title>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/calendar.css') }}">
+    <script type="text/javascript">
+        let user_id = '{{user_id}}'
+        let data_bitrix = '{{ data_bitrix }}';
+    </script>
+</head>
+<body>
+    <div class="calendar">
+        <div class="control-user">
+            <div><form  method="post" action="logout"><button id="update">logout </button></form></div>
+            <div id="username">({{username}})</div>
+        </div>
+        <div id="control-panel">
+                <div id="control-mouth">
+                    <button class="next-prev" id='prev-mouth'></button>
+                    <span id="now-name-mouth">Месяц</span>
+                    <span id="now-year">Год</span>
+                    <button class="next-prev" id='next-mouth'></button>
+                </div>
+                    <div id="control-update-calendar-user">
+                    <div><a id='link-hour-bitrix' href="https://alfalservice.bitrix24.ru/timeman/timeman.php" target="_blank">Мои часы</a></div>
+                </div>
+            </div>
+        <div class="tables">
+                <div>
+                    <table id="table-day-week">
+                        <tr>
+                        <td>Пн</td>
+                        <td>Вт</td>
+                        <td>Ср</td>
+                        <td>Чт</td>
+                        <td>Пт</td>
+                        <td>Сб</td>
+                        <td>Вс</td>
+                    </tr>
+                    </table>
+                </div>
+                <div>
+                    <table id="table-number-day">
+                    </table>
+                </div>
+            </div>
+        <div class="time-info">
+            <table>
+                <tr>
+                    <td class="time-bitrix">Часы</td>
+                    <td class="time-industrial">Необходимо</td>
+                    <td class="time-diff">Ещё работать</td>
+                </tr>
+                <tr>
+                    <td class="time-bitrix"><div id="my-hours">00ч:00м</div></td>
+                    <td class="time-industrial"><div id="total-hours">00ч:00м</div></td>
+                    <td class="time-diff"><div id="diff">00ч:00м</div></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/calendar.js') }}"></script>
+</body>
+</html>
