@@ -55,14 +55,15 @@ def registration():
 
         if password == repet_password:
             db = UsersDB()
-            flag, user_id, msg = db.set_users(username, password)
-            if not flag:
-                flash(msg, category='reg-error')
+            flag, user_db = db.set_users(username, password)
+            if flag:
+                user_id, *_ = user_db
+                return render_template('auth/authentication_data_bitrix.html', user_id=user_id, username=username)
             else:
-                return render_template('authentication_data_bitrix.html', user_id=user_id, username=username)
+                flash('Такой пользователь уже существует', category='reg-error')
         else:
             flash("Пароли на совпадают", category='reg-error')
-    return render_template('authentication_user.html', page='reg')
+    return render_template('auth/authentication_user.html', page='reg')
 
 
 @app.route("/calendar")

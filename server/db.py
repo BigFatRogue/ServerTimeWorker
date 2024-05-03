@@ -49,10 +49,10 @@ class UsersDB:
         else:
             # Создание пользователя и личного календаря
             new_user_id = self.cur.execute(f"SELECT COUNT(username) FROM user").fetchone()[0] + 1
-            filepath = f'users/user_{new_user_id}.json'
+            filepath = fr'{PROJECT_ROOT}/users/user_{new_user_id}.json'
 
             if not os.path.exists(filepath):
-                shutil.copy(r'resources/standart_calendar_json_2024.json', filepath)
+                shutil.copy(rf'{PROJECT_ROOT}/resources/standart_calendar_json_2024.json', filepath)
 
                 self.cur.execute(f"""INSERT INTO user (username, password, filepath) VALUES(?, ?, ?)""",
                                      (username, password, filepath))
