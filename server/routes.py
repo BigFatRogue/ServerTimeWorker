@@ -15,7 +15,6 @@ def load_user(user_id):
 
 @app.route("/")
 def index():
-    print('index', id(current_user.get_id()))
     if current_user.is_authenticated:
         return redirect(url_for('calendar'))
     return redirect(url_for('authentication'))
