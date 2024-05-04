@@ -1,0 +1,21 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
+#users {
+    border: 1px black solid;
+}
+
+#users td {
+    border: 1px black solid;
+}
+
+.select-edit {
+    background-color: #b0daff;
+}
+
+.select-edit-cell {
+    background-color: #b0daff;
+
+}

@@ -10,20 +10,20 @@ body {
     align-items: center;
 }
 
-.submit-info {
-    font-family: "Roboto", sans-serif;
-    text-transform: uppercase;
-    outline: 0;
-    background: #4CAF50;
-    width: 100%;
-    border: 0;
+.flash {
     padding: 10px;
-    margin-top: 5px;
-    color: #FFFFFF;
-    font-size: 14px;
-    cursor: pointer;
+    text-align: center;
+    font-size: 12px;
+    margin-bottom: 10px;
     border-radius: 5px;
 }
-.submit-info:hover {
-    background: #60c062;
+.flash.log-success,
+.flash.reg-success {
+    background: #aaffaa;
+    font-family: "Roboto", sans-serif;
+}
+.flash.log-error,
+.flash.reg-error {
+    background: #ffbebe;
+    font-family: "Roboto", sans-serif;
 }

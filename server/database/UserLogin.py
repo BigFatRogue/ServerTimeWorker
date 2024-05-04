@@ -1,9 +1,9 @@
-from server.db import UsersDB
+from server.database.db import Users
 from flask_login import UserMixin
 
 
 class UserLogin(UserMixin):
-    def from_db(self, user_id, db: UsersDB):
+    def from_db(self, user_id, db: Users):
         _, self.__user = db.get_user_id(user_id)
         return self
 

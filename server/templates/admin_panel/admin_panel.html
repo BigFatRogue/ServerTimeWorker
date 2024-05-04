@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Панель администратора</title>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <div class="content">
+        <table width="600px" id="users">
+            <tr>
+                <td colspan="3"><h2>Admin</h2></td>
+                <td><a href="/admin-logout">Выйти</a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" id="select-all-user"></td>
+                {% for col in column %}
+                    <td>{{ col }}</td>
+                {% endfor %}
+            </tr>
+            {% for user in users %}
+                <tr>
+                    <td><input type="checkbox" id="select-user"></td>
+                    {% for u in user %}
+                        <td> {{ u }} </td>
+                    {% endfor %}
+                    <td>
+                        <button class="edit-user">edit</button>
+                        <button class="del-user">del</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</body>
+</html>

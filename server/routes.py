@@ -1,16 +1,19 @@
 from flask import request, render_template, url_for, flash, redirect, flash, jsonify
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 import git
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from server import app, login_manager
-from server.get_users_json import get_user_calendar_json, update_calendar_user_json, get_users_time_bitrix, write_data_bitrix_user, check_user_bitrix_data
-from server.db import UsersDB
-from server.UserLogin import UserLogin
+from server.database.get_users_json import get_user_calendar_json, update_calendar_user_json, get_users_time_bitrix, write_data_bitrix_user, check_user_bitrix_data
+from server.database.db import Users, Admin
+from server.database.UserLogin import UserLogin
 
 
 @login_manager.user_loader
 def load_user(user_id):
-    return UserLogin().from_db(user_id, UsersDB())
+    if 'admin' in request.url:
+        return UserLogin().from_db(user_id, Admin())
+    return UserLogin().from_db(user_id, Users())
 
 
 @app.route("/")
@@ -26,12 +29,12 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
 
-        db = UsersDB()
+        db = Users()
         flag, user_db = db.get_user_username(username)
 
         if flag:
             user_id, username_db, password_db, filepath_db = user_db
-            if password_db != password:
+            if check_password_hash(password, password_db):
                 flash('Неверный пароль', category='log-error')
                 return render_template('auth/authentication_user.html', page='auth')
 
@@ -53,8 +56,8 @@ def registration():
         repet_password = request.form.get('repet-password')
 
         if password == repet_password:
-            db = UsersDB()
-            flag, user_id = db.set_users(username, password)
+            db = Users()
+            flag, user_id = db.set_users(username, generate_password_hash(password))
             if flag:
                 return render_template('auth/authentication_data_bitrix.html', user_id=user_id, username=username)
             else:
@@ -65,6 +68,7 @@ def registration():
 
 
 @app.route("/calendar")
+@login_required
 def calendar():
     user_id = current_user.get_id()
     username = current_user.get_username()
@@ -83,11 +87,13 @@ def logout():
 
 
 @app.route("/get_calendar/<user_id>")
+@login_required
 def get_calendar(user_id):
     return jsonify(get_user_calendar_json(user_id=user_id))
 
 
 @app.route("/get_my_hours", methods=["POST"])
+@login_required
 def get_my_hours():
     if request.method == "POST":
         data: dict = eval(request.data)
@@ -95,6 +101,7 @@ def get_my_hours():
 
 
 @app.route("/update_calendar_user", methods=["POST"])
+@login_required
 def update_calendar_user():
     if request.method == "POST":
         data: dict = eval(request.data)
@@ -116,27 +123,32 @@ def set_data_bitrix():
             flash(message='Неверно скопированный bush код', category='error')
             return render_template('authentication_data_bitrix.html', user_id=user_id)
         flash(f'Новый пользователь {username} зарегистрирован', category='log-success')
-        return redirect('/authentication')
+
+        db = Users()
+        flag, user_db = db.get_user_username(username)
+        login_user(UserLogin().create(user_db), remember=True)
+
+        return redirect(url_for('calendar'))
 
 
 @app.route("/instruction")
 def instruction():
-    return render_template('instruction.html')
+    return render_template('auth/instruction.html')
 
 
-@app.after_request
-def add_security_headers(resp):
-    resp.headers['Content-Security-Policy'] = 'frame-src http://10.0.0.2:5000'
-    resp.headers['SameSite'] = 'Strict'
-    return resp
+# @app.after_request
+# def add_security_headers(resp):
+#     resp.headers['Content-Security-Policy'] = 'frame-src http://10.0.0.2:5000'
+#     resp.headers['SameSite'] = 'Strict'
+#     return resp
 
 
-@app.route("/update_server", methods=["POST"])
-def webhook():
-    if request.method == "POST":
-        repo = git.Repo('')
-        origin = repo.remotes.origin
-        origin.pull()
-        return 'Update PythonAnywhere successfully', 200
-    else:
-        return 'Wrong event type 1', 400
+# @app.route("/update_server", methods=["POST"])
+# def webhook():
+#     if request.method == "POST":
+#         repo = git.Repo('')
+#         origin = repo.remotes.origin
+#         origin.pull()
+#         return 'Update PythonAnywhere successfully', 200
+#     else:
+#         return 'Wrong event type 1', 400

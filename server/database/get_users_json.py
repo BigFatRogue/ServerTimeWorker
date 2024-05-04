@@ -7,13 +7,13 @@ from server.my_sitting import PROJECT_ROOT
 
 def get_user_calendar_json(user_id=None) -> dict:
     if user_id:
-        with open(f'{PROJECT_ROOT}/users/user_{user_id}.json', 'r', encoding='utf-8') as users:
+        with open(f'{PROJECT_ROOT}/database/users/user_{user_id}.json', 'r', encoding='utf-8') as users:
             data = json.load(users)['calendar']
     return data
 
 
 def check_user_bitrix_data(user_id) -> bool:
-    with open(f'{PROJECT_ROOT}/users/user_{user_id}.json', 'r', encoding='utf-8') as users:
+    with open(f'{PROJECT_ROOT}/database/users/user_{user_id}.json', 'r', encoding='utf-8') as users:
         return json.load(users).get('data_bitrix') is not None
 
 
@@ -23,7 +23,7 @@ def update_calendar_user_json(change_list: dict) -> bool:
         user_id = int(change_list['user_id'])
         data = change_list['data']
 
-        with open(f'{PROJECT_ROOT}/users/user_{user_id}.json', 'r', encoding='utf-8') as users:
+        with open(f'{PROJECT_ROOT}/database/users/user_{user_id}.json', 'r', encoding='utf-8') as users:
             old = json.load(users)
 
         for item in data:
@@ -34,7 +34,7 @@ def update_calendar_user_json(change_list: dict) -> bool:
             old['calendar'][year][mouth][number_day - 1][3] = item['hour']
             old['calendar'][year][mouth][number_day - 1][0] = item['type_day']
 
-            with open(f'{PROJECT_ROOT}/users/user_{user_id}.json', 'w', encoding='utf-8') as users:
+            with open(f'{PROJECT_ROOT}/database/users/user_{user_id}.json', 'w', encoding='utf-8') as users:
                 json.dump(old, users)
 
         return True
@@ -60,17 +60,17 @@ def write_data_bitrix_user(user_id, string: str) -> bool:
     except Exception:
         return False
 
-    with open(f'{PROJECT_ROOT}/users/user_{user_id}.json', 'r', encoding='utf-8') as users:
+    with open(f'{PROJECT_ROOT}/database/users/user_{user_id}.json', 'r', encoding='utf-8') as users:
         data: dict = json.load(users)
 
-    with open(f'{PROJECT_ROOT}/users/user_{user_id}.json', 'w', encoding='utf-8') as users:
+    with open(f'{PROJECT_ROOT}/database/users/user_{user_id}.json', 'w', encoding='utf-8') as users:
         data['data_bitrix'] = {"cookies": cookies, "headers": headers, "params": params}
         json.dump(data, users)
     return True
 
 
 def get_users_time_bitrix(user_id, mouth, year):
-    with open(f'{PROJECT_ROOT}/users/user_{user_id}.json', 'r', encoding='utf-8') as users:
+    with open(f'{PROJECT_ROOT}/database/users/user_{user_id}.json', 'r', encoding='utf-8') as users:
         data: dict = json.load(users)['data_bitrix']
     cookies, headers, params = data['cookies'], data['headers'], data['params']
 

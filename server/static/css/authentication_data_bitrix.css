@@ -24,7 +24,7 @@
     border: 1px solid gray;
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0);
-    background-image: url("../resources/image/help.png");
+    background-image: url("../image/help.png");
     background-size: cover;
     background-repeat: no-repeat;
     padding: 2px;

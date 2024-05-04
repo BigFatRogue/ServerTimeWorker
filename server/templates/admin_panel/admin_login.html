@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin::Авторизация</title>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/general.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/authentication.css') }}">
+</head>
+<body>
+<div class="content">
+    <form action="/admin-login" method="post" class="form-login">
+        <table id="table-authentication" class="table">
+            <tr><td colspan="2" class="title-auth">Авторизация</td></tr>
+            <tr>
+                <td>
+                    {% for cat, msg in get_flashed_messages(True) %}
+                        {% if "log" in cat %}
+                            <div class="flash {{cat}}">{{msg}}</div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr><td><input class="enter-info" type="text" name="username" value="" placeholder="Логин" required/></td></tr>
+            <tr><td><input class="enter-info" type="Password" name="password" value="" placeholder="Пароль" required/></td></tr>
+            <tr><td><input class="submit-info" type="submit" value="Войти"/></td></tr>
+        </table>
+    </form>
+    </div>
+</body>
+</html>

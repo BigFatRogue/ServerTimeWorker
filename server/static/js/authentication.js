@@ -28,3 +28,10 @@ function open_tab(event, log) {
     document.getElementById(log).style.display = "block";
     event.currentTarget.className += " active";
 }
+
+document.onkeydown = function(event){
+    if (event.ctrlKey && event.shiftKey && event.key === "A") {
+        document.location.href = '/admin'
+    }
+
+}

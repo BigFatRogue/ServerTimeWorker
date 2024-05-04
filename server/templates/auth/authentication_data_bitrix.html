@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/general.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/authentication.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/authentication_data_bitrix.css') }}">
 </head>
 <body>
@@ -19,7 +20,7 @@
             <div class="element"><textarea id="bush-cod" name="bush-cod" required></textarea></div>
             <input type="hidden" name="user_id" value='{{ user_id }}'>
             <input type="hidden" name="username" value='{{ username }}'>
-            <div class="element"><input type="submit" value="Отправить"  class="submit-info"/></div>
+            <div class="element"><input type="submit" value="Отправить" class="submit-info"/></div>
         </form>
     </div>
 </body>

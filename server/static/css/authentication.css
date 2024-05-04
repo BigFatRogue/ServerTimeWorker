@@ -1,10 +1,3 @@
-.content {
-    width: 290px;
-    height: 250px;
-    position: absolute;
-    align-items: center;
-}
-
 .tab {
     overflow: hidden;
     align-items: center;
@@ -70,22 +63,28 @@
     border-radius: 5px;
 }
 
-.flash {
+.submit-info {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #4CAF50;
+    width: 100%;
+    border: 0;
     padding: 10px;
-    text-align: center;
-    font-size: 12px;
-    margin-bottom: 10px;
+    margin-top: 5px;
+    color: #FFFFFF;
+    font-size: 14px;
+    cursor: pointer;
     border-radius: 5px;
 }
-.flash.log-success,
-.flash.reg-success {
-    background: #aaffaa;
-    font-family: "Roboto", sans-serif;
-}
-.flash.log-error,
-.flash.reg-error {
-    background: #ffbebe;
-    font-family: "Roboto", sans-serif;
+.submit-info:hover {
+    background: #60c062;
 }
 
-
+.title-auth {
+    display: flex;
+    justify-content: center;
+    font-size: 14pt;
+    font-family: 'Trebuchet MS';
+    margin-bottom: 10px;
+}
