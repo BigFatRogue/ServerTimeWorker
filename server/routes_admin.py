@@ -75,3 +75,13 @@ def del_user():
         user_id = str(data['user_id']).strip()
         db_users.del_user(user_id)
     return jsonify({'status_del_user': 'success'})
+
+
+@app.route("/del_admin", methods=['GET', 'POST'])
+@login_required
+def del_admin():
+    db = Admin()
+    db.del_admin()
+    logout_user()
+    return redirect(url_for('admin'))
+

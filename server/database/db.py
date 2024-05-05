@@ -180,11 +180,6 @@ class Admin(DataBase):
         self.cur.execute("DELETE FROM admin")
         self.close()
 
-    def del_table(self):
-        self.create_db()
-        self.cur.execute("DROP TABLE admin")
-        self.close()
-
 
 if __name__ == '__main__':
     db = Users()
