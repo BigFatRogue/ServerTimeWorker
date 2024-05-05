@@ -44,7 +44,6 @@ def admin_panel():
     if current_user.get_id() == '1000':
         db = Users()
         data = db.get_all_users()
-        print(data)
         return render_template('admin_panel/admin_panel.html', users=data['users'], column=data['column'])
     return redirect('/')
 
@@ -57,8 +56,14 @@ def update_user_name():
         db_users = Users()
         user_id = str(data['user_id']).strip()
         username = str(data['username']).strip()
-        db_users.update_username(user_id, username)
-    return jsonify({'status': 'success'})
+        password = str(data['password']).strip()
+
+        if username:
+            db_users.update_username(user_id, username)
+        if password or password != '***':
+            db_users.update_password(user_id, password)
+
+    return jsonify({'status_update_user': 'success'})
 
 
 @app.route("/del_user", methods=['POST'])
@@ -69,4 +74,4 @@ def del_user():
         db_users = Users()
         user_id = str(data['user_id']).strip()
         db_users.del_user(user_id)
-    return jsonify({'status': 'success'})
+    return jsonify({'status_del_user': 'success'})

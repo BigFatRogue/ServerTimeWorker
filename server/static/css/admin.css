@@ -4,11 +4,23 @@ body {
 }
 
 #users {
-    border: 1px black solid;
+    border-collapse: collapse;
+    width: 500px;
+}
+
+th {
+    text-align: left;
+    padding-left: 10px;
 }
 
 #users td {
-    border: 1px black solid;
+    border-bottom: 1px gray solid;
+    padding: 5px;
+}
+
+#users tr:nth-child(3) {
+    background-color: rgba(255, 225, 69, 0.52);
+    font-weight: bold;
 }
 
 .select-edit {
@@ -17,5 +29,41 @@ body {
 
 .select-edit-cell {
     background-color: #b0daff;
+}
 
+.edit-user {
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0);
+    background-image: url("../image/edit.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 2px;
+    transition: 0.3s;
+}
+
+.edit-user:hover {
+    cursor: pointer;
+
+    transform: scale(1.2, 1.2);
+}
+
+.del-user {
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0);
+    background-image: url("../image/clear.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 2px;
+    transition: 0.3s;
+}
+
+.del-user:hover {
+    cursor: pointer;
+    transform: scale(1.2, 1.2);
 }

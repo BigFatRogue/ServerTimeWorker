@@ -7,26 +7,31 @@
 </head>
 <body>
     <div class="content">
-        <table width="600px" id="users">
+        <table id="users">
             <tr>
-                <td colspan="3"><h2>Admin</h2></td>
-                <td><a href="/admin-logout">Выйти</a></td>
+                <th colspan="4"><h2>Admin</h2></th>
+                <th><a href="/admin-logout">Выйти</a></th>
             </tr>
             <tr>
-                <td><input type="checkbox" id="select-all-user"></td>
+                <td colspan="5"><button class="del-user"></button></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class="select-all-user"></td>
                 {% for col in column %}
                     <td>{{ col }}</td>
                 {% endfor %}
+                <td>password</td>
+                <td></td>
             </tr>
             {% for user in users %}
                 <tr>
-                    <td><input type="checkbox" id="select-user"></td>
+                    <td><input type="checkbox" class="select-user"></td>
                     {% for u in user %}
                         <td> {{ u }} </td>
                     {% endfor %}
+                    <td>***</td>
                     <td>
-                        <button class="edit-user">edit</button>
-                        <button class="del-user">del</button>
+                        <button class="edit-user"></button>
                     </td>
                 </tr>
             {% endfor %}

@@ -34,7 +34,7 @@ def login():
 
         if flag:
             user_id, username_db, password_db, filepath_db = user_db
-            if check_password_hash(password, password_db):
+            if not check_password_hash(password_db, password):
                 flash('Неверный пароль', category='log-error')
                 return render_template('auth/authentication_user.html', page='auth')
 

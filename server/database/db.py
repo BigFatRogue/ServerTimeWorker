@@ -1,5 +1,6 @@
 import sqlite3
 import os, shutil, sys
+from werkzeug.security import generate_password_hash
 from server.my_sitting import DATABASE, PROJECT_ROOT
 
 
@@ -112,7 +113,7 @@ class Users(DataBase):
 
     def update_password(self, user_id: str, new_password: str) -> None:
         self.connection_db()
-        self.cur.execute(f"UPDATE user SET password = '{new_password}' WHERE id = '{user_id}'")
+        self.cur.execute(f"UPDATE user SET password = '{generate_password_hash(new_password) }' WHERE id = '{user_id}'")
         self.close()
 
     def update_username(self, user_id: str, username: str) -> None:
@@ -173,12 +174,6 @@ class Admin(DataBase):
         if user_db:
             return True, user_db
         return False, None
-
-    def get_admin(self) -> tuple:
-        self.connection_db()
-        res = self.cur.execute('SELECT * FROM admin').fetchone()
-        self.close()
-        return res
 
     def del_admin(self):
         self.create_db()
