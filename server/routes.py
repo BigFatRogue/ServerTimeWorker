@@ -19,7 +19,13 @@ def load_user(user_id):
 @app.route("/")
 def index():
     if current_user.is_authenticated:
-        return redirect(url_for('calendar'))
+        user_id = current_user.get_id()
+        username = current_user.get_username()
+
+        if check_user_bitrix_data(user_id):
+            return redirect(url_for('calendar'))
+        else:
+            return render_template('auth/authentication_data_bitrix.html', user_id=user_id, username=username)
     return redirect(url_for('authentication'))
 
 
@@ -121,7 +127,7 @@ def set_data_bitrix():
         res = write_data_bitrix_user(user_id=user_id, string=data)
         if not res:
             flash(message='Неверно скопированный bush код', category='error')
-            return render_template('authentication_data_bitrix.html', user_id=user_id)
+            return render_template('auth/authentication_data_bitrix.html', user_id=user_id)
         flash(f'Новый пользователь {username} зарегистрирован', category='log-success')
 
         db = Users()
