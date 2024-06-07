@@ -1,5 +1,5 @@
 import sqlite3
-import os, shutil, sys
+import os, shutil, sys, zipfile
 from werkzeug.security import generate_password_hash
 from server.my_sitting import DATABASE, PROJECT_ROOT
 
@@ -179,6 +179,24 @@ class Admin(DataBase):
         self.create_db()
         self.cur.execute("DELETE FROM admin")
         self.close()
+
+
+def load_zipdb() -> str:
+    zipname = 'database_un.zip'
+
+    if os.path.exists(os.path.join(PROJECT_ROOT, zipname)):
+        os.remove(os.path.join(PROJECT_ROOT, zipname))
+
+    with zipfile.ZipFile(os.path.join(PROJECT_ROOT, zipname), 'w') as file:
+        file.write(os.path.join(PROJECT_ROOT, 'database', 'db.db'))
+        file.write(os.path.join(PROJECT_ROOT, 'database', 'users'))
+
+    return zipname
+
+
+def upload_zipdb():
+    if os.path.exists('a'):
+        pass
 
 
 if __name__ == '__main__':

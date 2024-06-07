@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>Панель администратора</title>
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+        <script>
+        function uploadFile() {
+            document.getElementById('uploadForm').submit();
+        }
+    </script>
 </head>
 <body>
     <div class="content">
@@ -13,7 +18,14 @@
                 <th><a href="/admin-logout">Выйти</a></th>
             </tr>
             <tr>
-                <td colspan="4"><button class="del-user"></button></td>
+                <td colspan="2"><button class="del-user"></button></td>
+                <td><a href="/load_db">Выгрузить DB</a></td>
+{#                <td><a href="/upload_db">Загрузить DB</a></td>#}
+                <td>
+                    <form id="uploadForm" action="upload_db" method="post" enctype="multipart/form-data">
+                        <input type="file"  name="file" onchange="uploadFile()">
+                    </form>
+                </td>
                 <td><a href="/del_admin">Удалить admin account</a></td>
             </tr>
             <tr>
