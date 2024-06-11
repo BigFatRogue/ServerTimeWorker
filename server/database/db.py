@@ -182,21 +182,36 @@ class Admin(DataBase):
 
 
 def load_zipdb() -> str:
-    zipname = 'database_un.zip'
+    zipname = 'database_unload.zip'
+    fullpath = os.path.join(PROJECT_ROOT, zipname)
 
-    if os.path.exists(os.path.join(PROJECT_ROOT, zipname)):
-        os.remove(os.path.join(PROJECT_ROOT, zipname))
+    if os.path.exists(fullpath):
+        os.remove(fullpath)
 
-    with zipfile.ZipFile(os.path.join(PROJECT_ROOT, zipname), 'w') as file:
+    with zipfile.ZipFile(fullpath, 'w') as file:
         file.write(os.path.join(PROJECT_ROOT, 'database', 'db.db'))
-        file.write(os.path.join(PROJECT_ROOT, 'database', 'users'))
+        for user_js in os.listdir(os.path.join(PROJECT_ROOT, 'database', 'users')):
+            file.write(os.path.join(PROJECT_ROOT, 'database', 'users', user_js))
 
     return zipname
 
 
 def upload_zipdb():
-    if os.path.exists('a'):
-        pass
+    with zipfile.ZipFile(os.path.join(PROJECT_ROOT, 'database_upload.zip'), 'r') as file:
+        file.extractall(os.path.join(PROJECT_ROOT, 'extract_upload'))
+
+    for roots, folders, files in os.walk(os.path.join(PROJECT_ROOT, 'extract_upload')):
+        for file in files:
+            if file == 'db.db':
+                path_db = os.path.join(PROJECT_ROOT, 'database', 'db.db')
+                os.remove(path_db)
+                shutil.copy(os.path.join(roots, file), path_db)
+
+        for folder in folders:
+            if folder == 'users':
+                path_users = os.path.join(PROJECT_ROOT, 'database', 'users')
+                shutil.rmtree(path_users)
+                shutil.copytree(os.path.join(roots, folder), path_users)
 
 
 if __name__ == '__main__':

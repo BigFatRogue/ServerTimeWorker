@@ -4,7 +4,7 @@ from flask import render_template, redirect, url_for, request, flash, jsonify, s
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from server import app
-from server.database.db import Admin, Users, load_zipdb
+from server.database.db import Admin, Users, load_zipdb, upload_zipdb
 from server.database.UserLogin import UserLogin
 from server.my_sitting import PROJECT_ROOT
 
@@ -92,16 +92,23 @@ def del_admin():
 @app.route("/load_db", methods=['GET', 'POST'])
 @login_required
 def load_db():
+    # Загрузка db.db и папки users с сервера
     zipname = load_zipdb()
-    return send_from_directory('database', zipname)
+    print(zipname)
+    return send_from_directory(PROJECT_ROOT, zipname)
 
 
 @app.route("/upload_db", methods=['POST'])
 @login_required
 def upload_db():
+    # Загрузка db.db и папки users на сервера
     if request.method == 'POST':
         file = request.files['file']
         if file and '.zip' in file.filename:
-            file.save(os.path.join(PROJECT_ROOT, file.filename))
+            if os.path.exists(os.path.join(PROJECT_ROOT, 'database_upload.zip')):
+                os.remove(os.path.join(PROJECT_ROOT, 'database_upload.zip'))
+
+            file.save(os.path.join(PROJECT_ROOT, 'database_upload.zip'))
+            upload_zipdb()
             return redirect(url_for('admin'))
     return redirect(url_for('admin'))
