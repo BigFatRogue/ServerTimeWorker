@@ -4,7 +4,7 @@ import git
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from server import app, login_manager
-from server.database.get_users_json import get_user_calendar_json, update_calendar_user_json, get_users_time_bitrix, write_data_bitrix_user, check_user_bitrix_data
+from server.database.get_users_json import get_user_calendar_json, update_calendar_user_json, get_users_time_bitrix, write_data_bitrix_user, check_user_bitrix_data, create_standart_calendar
 from server.database.db import Users, Admin
 from server.database.UserLogin import UserLogin
 
@@ -68,6 +68,7 @@ def registration():
                 return render_template('auth/authentication_data_bitrix.html', user_id=user_id, username=username)
             else:
                 flash('Такой пользователь уже существует', category='reg-error')
+                
         else:
             flash("Пароли на совпадают", category='reg-error')
     return render_template('auth/authentication_user.html', page='reg')
@@ -78,7 +79,7 @@ def registration():
 def calendar():
     user_id = current_user.get_id()
     username = current_user.get_username()
-    return render_template('calendar.html', user_id=user_id, username=username)
+    return render_template('calendar/calendar.html', user_id=user_id, username=username)
 
 
 @app.route("/authentication")
@@ -91,6 +92,26 @@ def logout():
     logout_user()
     return redirect(url_for('authentication'))
 
+
+@app.route("/page-update-data-bitrix", methods=["GET", "POST"])
+def page_update_data_bitrix():
+    return render_template('calendar/page_update_data_bitrix.html', user_id=current_user.get_id())
+
+
+@app.route("/update-data-bitrix", methods=["POST"])
+def update_data_bitrix():
+    if request.method == 'POST':
+        data = request.form.get('bush-cod')
+        user_id = request.form.get('user_id')
+    
+        res = write_data_bitrix_user(user_id=user_id, string=data)
+        if not res:
+            flash(message='Неверно скопированный bush код', category='error')
+            return render_template('calendar/page_update_data_bitrix.html', user_id=user_id)
+        flash(f'Bush код обновлён', category='log-success')
+
+        return render_template('calendar/page_update_data_bitrix.html', user_id=user_id)
+    
 
 @app.route("/get_calendar/<user_id>")
 @login_required
@@ -142,19 +163,3 @@ def instruction():
     return render_template('auth/instruction.html')
 
 
-# @app.after_request
-# def add_security_headers(resp):
-#     resp.headers['Content-Security-Policy'] = 'frame-src http://10.0.0.2:5000'
-#     resp.headers['SameSite'] = 'Strict'
-#     return resp
-
-
-# @app.route("/update_server", methods=["POST"])
-# def webhook():
-#     if request.method == "POST":
-#         repo = git.Repo('')
-#         origin = repo.remotes.origin
-#         origin.pull()
-#         return 'Update PythonAnywhere successfully', 200
-#     else:
-#         return 'Wrong event type 1', 400

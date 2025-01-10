@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Панель администратора</title>
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/general.css') }}">
         <script>
         function uploadFile() {
             document.getElementById('uploadForm').submit();
@@ -19,15 +20,34 @@
             </tr>
             <tr>
                 <td colspan="2"><button class="del-user"></button></td>
-                <td><a href="/load_db">Выгрузить DB</a></td>
+                <td colspan="3">
+                    <div class="drop-down-menu">
+                        <div class="dd-header">
+                            <div class="dd-header-text">Инструменты</div>
+                            <div><button class="dd-header-button"></div>
+                        </div>
+                        <div class="dd-menu">
+                            <form action="load_db" method="post"><button class="drop-element" id="update-data-bitrix">Выгрузить DB</button></form>
+                            <div class="drop-element" style="padding-left: 6px;">
+                                <form action="upload_db" method="post">
+                                    <label for="upload_db">Загрузить DB</label>
+                                    <input id="upload_db" type="file"  name="file" onchange="uploadFile()" style="display: none">
+                                </form>
+                            </div>  
+                            <button id="del-admin" class="drop-element" id="update">Удалить Admin account</button>
+                        </div>
+                    </div>
+                </td>
+                <!-- <td><a href="/load_db">Выгрузить DB</a></td>
 {#                <td><a href="/upload_db">Загрузить DB</a></td>#}
                 <td>
                     <form id="uploadForm" action="upload_db" method="post" enctype="multipart/form-data">
                         <input type="file"  name="file" onchange="uploadFile()">
                     </form>
                 </td>
-                <td><a href="/del_admin">Удалить admin account</a></td>
+                <td><button id="del-admin">Удалить admin account</button></td> -->
             </tr>
+
             <tr>
                 <td><input type="checkbox" class="select-all-user"></td>
                 {% for col in column %}

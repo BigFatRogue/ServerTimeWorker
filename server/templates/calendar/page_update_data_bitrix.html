@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/general.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/authentication.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/authentication_data_bitrix.css') }}">
+</head>
+<body>
+    <div class="content">
+        <div class="element">
+            <div class="wrapper"><a class="return-calendar" href="calendar">Вернуться</a></div>
+            <div class="wrapper"><a class="element" target="_blank" href="https://alfalservice.bitrix24.ru/timeman/timeman.php">Обновить bush код</a></div>
+            <div class="wrapper"><form action="/instruction" target="_blank"><button id="info-bush"></button></form></div>
+        </div>
+        {% for cat, msg in get_flashed_messages(True) %}
+            <div class="flash {{cat}}">{{msg}}</div>
+        {% endfor %}
+
+        <form action="update-data-bitrix" method="post">
+            <div class="element"><textarea id="bush-cod" name="bush-cod" required></textarea></div>
+            <input type="hidden" name="user_id" value='{{ user_id }}'>
+            <div class="element"><input type="submit" value="Отправить" class="submit-info"/></div>
+        </form>
+    </div>
+</body>
+</html>

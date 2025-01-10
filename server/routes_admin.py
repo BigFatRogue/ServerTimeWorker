@@ -86,7 +86,7 @@ def del_admin():
     db = Admin()
     db.del_admin()
     logout_user()
-    return redirect(url_for('admin'))
+    return redirect('/')
 
 
 @app.route("/load_db", methods=['GET', 'POST'])
@@ -111,4 +111,14 @@ def upload_db():
             file.save(os.path.join(PROJECT_ROOT, 'database_upload.zip'))
             upload_zipdb()
             return redirect(url_for('admin'))
+    return redirect(url_for('admin'))
+
+@app.route("/upload-calendar", methods=['POST'])
+@login_required
+def upload_calendar():
+    # Загрузка календарь на год и обновить у всех пользователей
+    if request.method == 'POST':
+        file = request.files['file']
+        if file:
+            pass
     return redirect(url_for('admin'))

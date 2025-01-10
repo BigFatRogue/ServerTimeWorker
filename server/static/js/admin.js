@@ -45,8 +45,7 @@ function select_all_row(event) {
     })
 }
 
-document.getElementsByClassName('del-user')[0].onclick = del_user
-function del_user(event) {
+document.getElementsByClassName('del-user')[0].addEventListener('click', () => {
     let data = {'user_id': [], 'row': []}
     let string_username = ""
     let flag = false
@@ -77,5 +76,12 @@ function del_user(event) {
             })
         }
     }
-    this.checked = false
-}
+})
+
+
+document.getElementById('del-admin').addEventListener('click', () => {
+    let res = confirm('Уверены, что хотите удалить текущего Admin?')
+    if (res) {
+        fetch('/del_admin', {method: "POST"})
+    }
+})

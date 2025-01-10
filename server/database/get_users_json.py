@@ -18,7 +18,6 @@ def check_user_bitrix_data(user_id) -> bool:
 
 
 def update_calendar_user_json(change_list: dict) -> bool:
-    # data = [type_day, week_day, day, hours
     try:
         user_id = int(change_list['user_id'])
         data = change_list['data']

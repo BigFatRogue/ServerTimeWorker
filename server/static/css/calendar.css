@@ -6,6 +6,24 @@
     border-radius: 15px;
 }
 
+.control-user {
+    display: flex;
+    justify-content: right;
+    margin-bottom: 5px;
+}
+
+
+#username {
+    padding: 2px;
+    color: #b7b4b4;
+    font-size: 10pt;
+    transition: 0.3s;
+}
+
+.dd-header:hover #username  {
+    color: black;
+}
+
 #control-mouth {
     display: flex;
     justify-content: space-between;
@@ -93,12 +111,10 @@ td:hover {
 /*Ячейка*/
 .day-off {
     background-color: #ff9a9a;
-    /*color: white;*/
 }
 
 /*Ячейка*/
 .day-on {
-    /*border: 1px solid black;*/
     background-color: #aee574;
 }
 
@@ -116,25 +132,9 @@ td:hover {
     color: gray;
 }
 
-.control-user {
-    display: flex;
-    justify-content: right;
-    color: gray;
-    margin-bottom: 10px;
-}
-/*#total-hours {*/
-/*    margin-right: 50px;*/
-/*}*/
-/*#my-hours {*/
-/*    margin-right: 10px;*/
-/*}*/
 
-#username {
-    padding: 2px;
-    color: #b7b4b4;
-    font-size: 10pt;
-}
-.control-user button {
+
+/* .control-user button {
     border: none;
     background: none;
     padding: 2px;
@@ -146,15 +146,10 @@ td:hover {
     color: gray;
     cursor: pointer;
     border-radius: 3px;
-}
-
-/*.time-info {*/
-/*    display: flex;*/
-/*}*/
+} */
 
 .time-info table {
     width: 100%;
-    /*border-collapse: collapse;*/
 }
 
 .time-info table td {
@@ -162,7 +157,6 @@ td:hover {
     font-size: 10pt;
     text-align: center;
     width: 33%;
-    /*border: 1px solid gray;*/
 }
 
 .time-bitrix {

@@ -3,6 +3,7 @@ document.body.addEventListener('click', function (event) {
         chrome.tabs.create({url: event.target.href});
     }
 });
+
 function main_function(calendar) {
     function create_table() {
         for (let row = 0; row < cRows; row++) {

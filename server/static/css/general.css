@@ -27,3 +27,67 @@ body {
     background: #ffbebe;
     font-family: "Roboto", sans-serif;
 }
+
+.drop-down-menu {
+    display: inline-block;
+}
+
+.dd-header {
+    display: flex;
+    cursor: pointer;
+}
+
+.dd-header-text {
+    padding: 2px;
+    transition: 0.3s;
+}
+
+.dd-header-button {
+    background-color: rgba(255, 255, 255, 0);
+    background-image: url("../image/right-arrow.png");
+    border: none;
+    background-size:contain;
+    height: 10px;
+    width: 10px;
+    margin-top: 5px;
+    transform: rotate(90deg);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.dd-header:hover .dd-header-text  {
+    color: black;
+}
+
+.dd-header:hover .dd-header-button {
+    transform: rotate(90deg) scale(1.2, 1.2);
+}
+
+.dd-menu {
+    display: none;
+    position: absolute;
+    flex-direction: column;
+    justify-content: right;
+    border-radius: 15px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.drop-down-menu:hover .dd-menu {
+    display: flex;
+}
+
+.drop-element {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
+    display: flex;
+    flex-grow:3;
+    border: none;
+    background-color: white;
+    width: 100%;
+    cursor: pointer;
+} 
+
+.drop-element:hover {
+    background-color: #e2e2e2;
+}

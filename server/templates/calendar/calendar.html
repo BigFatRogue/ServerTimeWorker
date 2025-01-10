@@ -13,8 +13,16 @@
 <body>
     <div class="calendar">
         <div class="control-user">
-            <div><form  method="post" action="logout"><button id="update">logout </button></form></div>
-            <div id="username">({{username}})</div>
+            <div class="drop-down-menu">
+                <div class="dd-header">
+                    <div class="dd-header-text" id="username">{{username}}</div>
+                    <div><button class="dd-header-button"></div>
+                </div>
+                <div class="dd-menu">
+                    <form  method="post" action="page-update-data-bitrix"><button class="drop-element" id="update-data-bitrix"><span>Обновить <i>bush</i></span></button></form>
+                    <form  method="post" action="logout"><button class="drop-element" id="update">Выйти</button></form>
+                </div>
+            </div>
         </div>
         <div id="control-panel">
                 <div id="control-mouth">
