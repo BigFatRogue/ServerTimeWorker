@@ -4,7 +4,7 @@ import git
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from server import app, login_manager
-from server.database.get_users_json import get_user_calendar_json, update_calendar_user_json, get_users_time_bitrix, write_data_bitrix_user, check_user_bitrix_data, create_standart_calendar
+from server.database.get_users_json import get_user_calendar_json, update_calendar_user_json, get_users_time_bitrix, write_data_bitrix_user, check_user_bitrix_data
 from server.database.db import Users, Admin
 from server.database.UserLogin import UserLogin
 
