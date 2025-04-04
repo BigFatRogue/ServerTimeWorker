@@ -52,7 +52,7 @@ def write_data_bitrix_user(user_id, string: str) -> bool:
     }
 
     try:
-        templates = ("BITRIX_SM_UIDL", "BITRIX_SM_UIDD", "BX_USER_ID", "PHPSESSID", "BITRIX_SM_UIDH")
+        templates = ("BITRIX_SM_UIDL", "BITRIX_SM_UIDD", "PHPSESSID", "BITRIX_SM_UIDH")
         for t in templates:
             response = re.findall(fr"({t}=.*?)[;|']", string)[0].split('=')
             cookies[response[0]] = response[1]
